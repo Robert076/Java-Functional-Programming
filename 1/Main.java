@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        List<String> words = Arrays.asList("hi", "hello", "robert");
+        List<String> words = Arrays.asList("hi", "hello", "robert", "bec");
         
         // P1. Loop down the words and print each on a separate line, with two spaces in front of each word.
         // Don’t use map.
@@ -51,5 +51,22 @@ public class Main {
 
         List<String> evenLengthWords = words.stream().filter(s -> (s.length() % 2 == 0)).collect(Collectors.toList());
         evenLengthWords.stream().forEach(System.out::println);
+
+        // P5. Turn the strings into uppercase, keep only the ones that are shorter than 4 characters, of what is
+        // remaining, keep only the ones that contain “E”, and print the first result. Repeat the process, except
+        // checking for a “Q” instead of an “E”. When checking for the “Q”, try to avoid repeating all the code
+        // from when you checked for an “E”.
+        
+        String p5E = words.stream().map(s -> s.toUpperCase()).filter(s -> s.length() < 4).filter(s -> s.contains("E")).findFirst().orElse("");
+        System.out.println(p5E);
+        
+        // P6. Produce a single String that is the result of concatenating the uppercase versions of all of the
+        // Strings. Use a single reduce operation, without using map.
+
+        String p6 = words.stream().reduce("", (partialResult, current) -> partialResult + current.toUpperCase());
+        System.out.println(p6);
+
+//         P7. Produce the same String as above, but this time via a map operation that turns the words into
+// uppercase, followed by a reduce operation that concatenates them.
     }
 }
