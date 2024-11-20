@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,5 +16,40 @@ public class Main {
         // lambda as in P1.
 
         words.stream().forEach(System.out::println);
+
+        // P3. We assume that we have a method StringUtils.transformedList(List<String>,
+        // Function1<String>)
+        // where interface Function1<T> { T app(T);}
+        // and we produced transformed lists like this:
+        // • List<String> excitingWords = StringUtils.transformedList(words, s -> s + "!");
+        // • List<String> eyeWords = StringUtils.transformedList(words, s -> s.replace("i", "eye"));
+        // • List<String> upperCaseWords = StringUtils.transformedList(words, String::toUpperCase);
+        // Produce the same lists as above, but this time use streams and the builtin “map” method.
+
+        List<String> excitingWords = words.stream().map(s -> s + "!").collect(Collectors.toList());
+        excitingWords.stream().forEach(System.out::println);
+
+        List<String> eyeWords = words.stream().map(s -> s.replace("i", "eye")).collect(Collectors.toList());
+        eyeWords.stream().forEach(System.out::println);
+
+        List<String> upperCaseWords = words.stream().map(s -> s.toUpperCase()).collect(Collectors.toList());
+        upperCaseWords.stream().forEach(System.out::println);
+
+        // P4. We assume that we have the method StringUtils.allMatches(List<String>, Predicate1<String>)
+        // where interface Predicate1<T> { boolean check(T);}
+        // and we produced filtered lists like this:
+        // • List<String> shortWords = StringUtils.allMatches(words, s -> s.length() < 4);
+        // • List<String> wordsWithB = StringUtils.allMatches(words, s -> s.contains("b"));
+        // • List<String> evenLengthWords = StringUtils.allMatches(words, s -> (s.length() % 2) == 0);
+        // Produce the same lists as above, but this time use “filter”.
+
+        List<String> shortWords = words.stream().filter(s -> s.length() < 4).collect(Collectors.toList());
+        shortWords.stream().forEach(System.out::println);
+
+        List<String> wordsWithB = words.stream().filter(s -> s.contains("b")).collect(Collectors.toList());
+        wordsWithB.stream().forEach(System.out::println);
+
+        List<String> evenLengthWords = words.stream().filter(s -> (s.length() % 2 == 0)).collect(Collectors.toList());
+        evenLengthWords.stream().forEach(System.out::println);
     }
 }
